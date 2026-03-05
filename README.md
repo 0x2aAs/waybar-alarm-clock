@@ -1,7 +1,6 @@
-## Waybar Alarm – A minimal custom module
-This project is intentionally minimal and easy to read.
-It is meant as a starting point for learning how custom [Waybar](https://github.com/Alexays/Waybar) modules work, not something that is production-ready.
-It's not using background demons, loops or any advanced IPC.
+## Waybar alarm clock – a minimal custom module written in bash
+This project is intentionally minimal and easy to read, since it doesn't use any background demons, loops or advanced IPC.
+It provides a resource for learning how custom [Waybar](https://github.com/Alexays/Waybar) modules work.
 
 Dependencies:
 - Bash
