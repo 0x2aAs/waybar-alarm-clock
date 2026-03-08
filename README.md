@@ -20,7 +20,7 @@ Dependencies to run this module with Waybar:
 ```~/.config/waybar-alarm/```
 - make them executable:
 ```chmod +x alarm.sh set_alarm.sh```
-- add the module to your Waybar ```config.jsonc``` (see [styling below](https://github.com/0x2aAs/waybar-alarm-clock?tab=readme-ov-file#styling)):
+- add the module to your Waybar ```config.jsonc``` (see [styling below](https://github.com/0x2aAs/waybar-alarm-clock#styling)):
 ```
 "custom/alarm": {
     "exec": "~/.config/waybar-alarm/alarm.sh",
