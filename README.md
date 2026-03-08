@@ -1,20 +1,26 @@
-## Waybar alarm clock – a minimal custom module written in bash
-This project is intentionally minimal and easy to read, since it doesn't use any background demons, loops or advanced IPC.
-It provides a resource for learning how custom [Waybar](https://github.com/Alexays/Waybar) modules work.
+## Waybar alarm clock
+About this module:
+- minimal and beginner-friendly
+- only two bash scripts
+- learn to add custom output to [Waybar](https://github.com/Alexays/Waybar)
 
-Dependencies:
+>Information about Waybar and custom modules 
+>- [Waybar Wiki](https://github.com/Alexays/Waybar/wiki)
+>- [custom module](https://github.com/Alexays/Waybar/wiki/Module:-Custom)
+>- [custom module examples](https://github.com/Alexays/Waybar/wiki/Module:-Custom:-Examples)
+
+## Waybar alarm clock
+Dependencies to run this module with Waybar:
+- [wofi](https://github.com/SimplyCEO/wofi) for entering the alarm time
 - Bash
-- ```wofi``` for entering the alarm time
 - ```date``` (GNU coreutils)
 
 ### Installation
-1. Clone or copy the scripts into:
+- clone or copy the scripts into:
 ```~/.config/waybar-alarm/```
-
-2. Make them executable:
+- make them executable:
 ```chmod +x alarm.sh set_alarm.sh```
-
-3. Add the module to your Waybar ```config.jsonc```:
+- add the module to your Waybar ```config.jsonc``` (see [styling below](https://github.com/0x2aAs/waybar-alarm-clock/edit/main/README.md#styling)):
 ```
 "custom/alarm": {
     "exec": "~/.config/waybar-alarm/alarm.sh",
@@ -23,16 +29,23 @@ Dependencies:
     "interval": 1
 }
 ```
-4. Restart Waybar.
+4. Reload Waybar ```killall -SIGUSR2 waybar```
 
-### Setting an alarm
-Clicking on the alarm-clock module in Waybar opens a window (```wofi```) that reads the time you want to set the alarm for.
-It uses the ```date``` command, therefore an alarm can be entered like this:
-- ```30 minutes```
-- ```16:30```
-- ```2042-03-14 7:00```
+### How to use the module
+Create an alarm:
+- left-click opens a wofi window
+- enter a specific time ```16:30``` or time interval ```30 minutes```
+- or a full date with time ```2042-03-14 7:00```
 
-If an alarm is set clicking again deletes it.
+Delete a running alarm:
+- clicking the alarm deletes it
+
+
+The module scripts use internally the ```date``` command
+- date and times are always specified from least to most precise: YEAR-MONTH-DAY hour-minute-second
+- see also the [man page for date](https://man7.org/linux/man-pages/man1/date.1.html#DATE_STRING):
+> The ```--date=STRING``` is a mostly free format human readable date string such as "Sun, 29 Feb 2004 16:21:42 -0800" or "2004-02-29
+     16:21:42" or even "next Thursday". 
 
 ### How it works
 Since Waybar modules are just commands that output JSON or text, you can hook anything you want into it via scripts. You do not have to write a native C++ module.
@@ -45,9 +58,10 @@ The alarm-clock script itself does not run in a loop, instead
 To remember the alarm time, the script stores a Unix timestamp in a file:
 ```~/.config/waybar-alarm/state```
 
-A Unix timestamp counts the seconds since the epoch and looks like this:
-```1710427200```
-Timestamps are timezone independent and we can do simple numeric comparison and easy calculations.
+Unix timestamps 
+- count the seconds since the epoch, e.g. ```1710427200```
+- are timezone independent
+- allow simple numeric comparison and calculations
 
 ### Countdown logic
 Core idea inside ```alarm.sh```:
@@ -76,9 +90,9 @@ When clicking the module:
 Waybar simply executes another script: ```set_alarm.sh```,
 which: 
 - opens a wofi prompt
-- Converts input into a Unix timestamp
-- Writes it into the state file
-- If an alarm is already active, clicking removes it.
+- converts input into a Unix timestamp
+- writes it into the state file
+- if an alarm is already active, clicking it deletes the file with ```rm $state_file```
 
 ### Styling
 The script outputs a JSON class field:
@@ -97,6 +111,17 @@ You can style it in your Waybar ```styles.css```:
 
 #custom-alarm.idle {
     color: gray;
+}
+```
+You can also make the module background blink red for better visibility of a triggered alarm:
+```
+#custom-alarm.active {
+    background-color: red;
+    animation-name: blink;
+    animation-duration: 0.3s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 ```
 
