@@ -1,15 +1,15 @@
 ## Waybar alarm clock
-About this module:
-- minimal and beginner-friendly
-- only two bash scripts
-- learn to add custom output to [Waybar](https://github.com/Alexays/Waybar)
+This module:
+- is minimal and beginner-friendly
+- uses only two bash scripts
+- shows how to add custom output to [Waybar](https://github.com/Alexays/Waybar)
 
 >Information about Waybar and custom modules 
 >- [Waybar Wiki](https://github.com/Alexays/Waybar/wiki)
 >- [custom module](https://github.com/Alexays/Waybar/wiki/Module:-Custom)
 >- [custom module examples](https://github.com/Alexays/Waybar/wiki/Module:-Custom:-Examples)
 
-## Waybar alarm clock
+## About the module
 Dependencies to run this module with Waybar:
 - [wofi](https://github.com/SimplyCEO/wofi) for entering the alarm time
 - Bash
